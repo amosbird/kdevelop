@@ -303,7 +303,7 @@ Container::Container(QWidget *parent)
 {
     KAcceleratorManager::setNoAccel(this);
 
-    QBoxLayout *l = new QBoxLayout(QBoxLayout::TopToBottom, this);
+    QBoxLayout *l = new QBoxLayout(QBoxLayout::BottomToTop, this);
     l->setMargin(0);
     l->setSpacing(0);
 

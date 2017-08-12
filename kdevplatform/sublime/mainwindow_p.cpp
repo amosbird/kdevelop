@@ -459,6 +459,9 @@ void MainWindowPrivate::reconstruct()
     }
 
     setTabBarLeftCornerWidget(m_leftTabbarCornerWidget.data());
+
+    m_concentrationModeAction->setChecked(true);
+    restoreConcentrationMode();
 }
 
 void MainWindowPrivate::clearArea()
