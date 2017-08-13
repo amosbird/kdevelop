@@ -184,6 +184,9 @@ MainWindowPrivate::MainWindowPrivate(MainWindow *w, Controller* controller)
 
     connect(idealController, &IdealController::dockBarContextMenuRequested,
             m_mainWindow, &MainWindow::dockBarContextMenuRequested);
+
+    m_concentrationModeAction->setChecked(true);;
+    restoreConcentrationMode();
 }
 
 
@@ -220,28 +223,28 @@ void MainWindowPrivate::restoreConcentrationMode()
     m_rightToolBar->setVisible(!concentrationModeOn);
 
     if (concentrationModeOn) {
-        m_concentrateToolBar = new QToolBar(m_mainWindow);
-        m_concentrateToolBar->setObjectName(QStringLiteral("concentrateToolBar"));
-        m_concentrateToolBar->addAction(m_concentrationModeAction);
-        m_concentrateToolBar->toggleViewAction()->setVisible(false);
-        QWidgetAction *action = new QWidgetAction(this);
+        // m_concentrateToolBar = new QToolBar(m_mainWindow);
+        // m_concentrateToolBar->setObjectName(QStringLiteral("concentrateToolBar"));
+        // m_concentrateToolBar->addAction(m_concentrationModeAction);
+        // m_concentrateToolBar->toggleViewAction()->setVisible(false);
+        // QWidgetAction *action = new QWidgetAction(this);
+        //
+        // action->setDefaultWidget(m_mainWindow->menuBar()->cornerWidget(Qt::TopRightCorner));
+        // m_concentrateToolBar->addAction(action);
+        // m_concentrateToolBar->setMovable(false);
 
-        action->setDefaultWidget(m_mainWindow->menuBar()->cornerWidget(Qt::TopRightCorner));
-        m_concentrateToolBar->addAction(action);
-        m_concentrateToolBar->setMovable(false);
-
-        m_mainWindow->addToolBar(Qt::TopToolBarArea, m_concentrateToolBar);
+        // m_mainWindow->addToolBar(Qt::TopToolBarArea, m_concentrateToolBar);
         m_mainWindow->menuBar()->setCornerWidget(nullptr, Qt::TopRightCorner);
     } else if (cornerWidget) {
         m_mainWindow->menuBar()->setCornerWidget(cornerWidget, Qt::TopRightCorner);
         cornerWidget->show();
     }
 
-    if (concentrationModeOn) {
-        m_mainWindow->installEventFilter(this);
-    } else {
-        m_mainWindow->removeEventFilter(this);
-    }
+    // if (concentrationModeOn) {
+    //     m_mainWindow->installEventFilter(this);
+    // } else {
+    //     m_mainWindow->removeEventFilter(this);
+    // }
 }
 
 bool MainWindowPrivate::eventFilter(QObject* obj, QEvent* event)
@@ -459,9 +462,6 @@ void MainWindowPrivate::reconstruct()
     }
 
     setTabBarLeftCornerWidget(m_leftTabbarCornerWidget.data());
-
-    m_concentrationModeAction->setChecked(true);
-    restoreConcentrationMode();
 }
 
 void MainWindowPrivate::clearArea()
